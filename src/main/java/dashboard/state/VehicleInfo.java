@@ -85,6 +85,10 @@ public class VehicleInfo {
     return plannedPath.stream().map(RoadEdge::edgeId).toList();
   }
 
+  public List<RoadEdge> getPlannedEdges() {
+    return plannedPath;
+  }
+
   public void clearRouteUpdatedFlag() {
     this.routeUpdated = false;
   }
