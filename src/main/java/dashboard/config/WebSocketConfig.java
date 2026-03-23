@@ -5,6 +5,7 @@ import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketTransportRegistration;
 
 @Configuration
 @EnableWebSocketMessageBroker
@@ -23,5 +24,12 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     registry.addEndpoint("/ws-dashboard")
         .setAllowedOriginPatterns("http://localhost:5173")
         .withSockJS(); // 호환성을 위한 fallback 옵션
+  }
+
+  @Override
+  public void configureWebSocketTransport(WebSocketTransportRegistration registry) {
+    registry.setMessageSizeLimit(1024 * 1024);
+    registry.setSendBufferSizeLimit(5 * 1024 * 1024);
+    registry.setSendTimeLimit(10000);
   }
 }
